@@ -41,6 +41,12 @@ int main() {
       break;
     }
 
+    printf("Compare queue1 and array with same result: ");
+    if (q_compare(q_head, numbers, LENGTH))
+      printf("Same\n");
+    else
+      printf("Different\n");
+
     free(numbers);
     q_free(q_head);
     q_free(q_head2);
