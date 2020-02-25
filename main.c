@@ -12,18 +12,16 @@ void bubble_sort(int *, int);
 void swap(int *a, int *b);
 list* q_insert_lot(list*, int*, int);
 int main() {
-	int *numbers, i, scores;
-	list *q_head, *q_tail, *q_head2, *q_tail2;
-	scores = 0;
+	int scores = 0;
 	srand( time(NULL) );
-	for(i=0;i < 100; i++) {
-	  	numbers = random_array(LENGTH);
-		show_numbers(numbers, LENGTH);
-		q_tail = NULL;
-		q_tail2 = NULL;
 
-		q_head = q_insert_lot(q_tail, numbers, LENGTH);
-		q_head2 = q_insert_lot(q_tail2, numbers, LENGTH);
+	for(int i=0;i < 100; i++) {
+	  	int *numbers = random_array(LENGTH);
+		show_numbers(numbers, LENGTH);
+
+		list *q_tail = *q_tail2 = NULL;
+		list *q_head = q_insert_lot(q_tail, numbers, LENGTH);
+		list *q_head2 = q_insert_lot(q_tail2, numbers, LENGTH);
 
 		bubble_sort(numbers,LENGTH);
 

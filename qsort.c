@@ -20,9 +20,8 @@ list *q_new(int d)
 
 void q_free(list *head)
 {
-	list* tmp;
 	while(head != NULL) {
-		tmp = head;
+		list *tmp = head;
 		head = head->next;
 		free(tmp);
 	}
@@ -42,8 +41,7 @@ void q_show(list *target)
 
 bool q_compare(list *target, int *ans, int size)
 {
-	int i;
-	for(i=0;i < size; i++) {
+	for(int i=0;i < size; i++) {
 	  	if(target == NULL)
 		  	return false;
 	  	if(target->data != ans[i])
