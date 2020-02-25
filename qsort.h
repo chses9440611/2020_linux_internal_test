@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 typedef struct __list {
-  int data;
-  struct __list *next;
+    int data;
+    struct __list *next;
 } list;
 
 list *q_new(int);
