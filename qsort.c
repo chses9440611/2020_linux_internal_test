@@ -5,6 +5,10 @@
 list *q_new(int d)
 {
     list *tmp = malloc(sizeof(list));
+    if (!tmp) {
+        printf("Malloc fail");
+        return NULL;
+    }
     tmp->data = d;
     tmp->next = NULL;
     return tmp;

@@ -17,24 +17,29 @@ int main()
 
     for (int i = 0; i < 100; i++) {
         int *numbers = random_array(LENGTH);
+        if (numbers == NULL) {
+            printf("The %d-th malloc failed!\n", i);
+            break;
+        }
         show_numbers(numbers, LENGTH);
 
-        list *q_tail = *q_tail2 = NULL;
+        list *q_tail, *q2_tail;
+        q_tail = q2_tail = NULL;
         list *q_head = q_insert_lot(q_tail, numbers, LENGTH);
-        list *q_head2 = q_insert_lot(q_tail2, numbers, LENGTH);
+        list *q2_head = q_insert_lot(q2_tail, numbers, LENGTH);
 
         bubble_sort(numbers, LENGTH);
 
         q_head = sort(q_head, 0);
-        q_head2 = sort(q_head2, 1);
+        q2_head = sort(q2_head, 1);
 
         printf("Queue1 after sort: ");
         q_show(q_head);
 
         printf("Queue2 after sort: ");
-        q_show(q_head2);
+        q_show(q2_head);
         printf("Are two queues same?\n");
-        if (qs_compare(q_head, q_head2)) {
+        if (qs_compare(q_head, q2_head)) {
             printf("Same queues\n");
             scores++;
         } else {
@@ -50,7 +55,7 @@ int main()
 
         free(numbers);
         q_free(q_head);
-        q_free(q_head2);
+        q_free(q2_head);
         printf("-----------------------\n");
     }
     printf("The total scores: %d/100\n", scores);
@@ -60,6 +65,10 @@ int main()
 int *random_array(int size)
 {
     int *tmp = malloc(sizeof(int) * size);
+    if (tmp == NULL) {
+        printf("Malloc int array fail!\n");
+        return NULL;
+    }
     int i;
     for (i = 0; i < size; i++)
         tmp[i] = rand() % 100;
@@ -82,9 +91,18 @@ list *q_insert_lot(list *tail, int *data, int length)
     int i;
     list *tmp;
     tmp = tail = q_new(data[0]);
+    if (!tail) {
+        printf("Insert first node failed\n");
+        return NULL;
+    }
+
     for (i = 1; i < length; i++) {
-        // q_insert(tail, data[i]);
         tail->next = q_new(data[i]);
+        if (!tail->next) {
+            printf("Insert %d-th node failed\n", i);
+            q_free(tmp);
+            return NULL;
+        }
         tail = tail->next;
     }
 
